@@ -2,14 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-// struct Node
-// {
-//     int data;
-//     struct Node *next;
-// };
-
 typedef struct NODE
 {
     uint32_t data;
@@ -55,7 +47,6 @@ void print_all_nodes(NODE * someNode)
         node = node->next;
         counter++;
     }while (node->next != NULL) ;
-    print_one_node(node);
     printf("Counter: %d \n", counter);
 }
 
