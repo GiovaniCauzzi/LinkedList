@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "main.h"
 
 typedef struct NODE
 {
@@ -39,6 +40,24 @@ NODE *find_last_node(NODE *head)
     }
 
     // printf("Last node iterations: %d \n", counter);
+    return current;
+}
+
+NODE *find_first_node(NODE *head)
+{
+    uint32_t counter = 0;
+    if (head == NULL)
+        return NULL;
+
+    NODE *current = head;
+
+    while (current->previous != NULL)
+    {
+        counter++;
+        current = current->previous;
+    }
+
+    // printf("First node iterations: %d \n", counter);
     return current;
 }
 
@@ -115,6 +134,12 @@ NODE* insert_new_node_after(NODE *thisNode)
 
 int main(void)
 {
+
+    return 0;
+}
+
+void TEST_insert_node_process()
+{
     NODE fistNode = {0};
 
     fistNode.data = 80;
@@ -123,12 +148,26 @@ int main(void)
     {
         append_node(&fistNode);
     }
-    
+
     print_all_nodes(&fistNode);
     printf("\n\n-----------\n\n");
 
     insert_new_node_after(insert_new_node_after(get_nth_node_of_list(&fistNode, 3)));
     print_all_nodes(&fistNode);
+}
 
-    return 0;
+void TEST_find_first_or_last_node_process()
+{
+    NODE fistNode = {0};
+    fistNode.data = 80;
+
+    for (uint32_t i = 0; i < 10; i++)
+    {
+        append_node(&fistNode);
+    }
+    // print_one_node((get_nth_node_of_list(&fistNode, 3)));
+    print_one_node(find_first_node(get_nth_node_of_list(&fistNode, 3)));
+    print_one_node(find_last_node(get_nth_node_of_list(&fistNode, 3)));
+    printf("\n\n-----------\n\n");
+    print_all_nodes(&fistNode);
 }
