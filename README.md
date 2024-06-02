@@ -1,8 +1,10 @@
 # Linked List
 
-## Intro
-
 This Linked List library is created as an exercise to understand pointers, dynamically allocated memory, and other fundamental concepts. It's currently a work in progress, but don't worry; we're making steady progress (even if we sometimes feel like we're moving at a snail's pace!).
+
+## To compile it
+
+I'm using [MinGW](https://www.mingw-w64.org/) in a windows machine. The file 'compile_and_run.bat' has a handful of instructions to compile and run the executable. Pretty simple.
 
 ## Features
 
