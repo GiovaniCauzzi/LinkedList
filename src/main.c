@@ -92,10 +92,46 @@ void append_node(NODE *someNode)
     someData++;
 }
 
-NODE* get_nth_node_of_list(NODE *firstNode, uint32_t n)
-{   
-    NODE* auxNode = firstNode;
+NODE *get_nth_node_from_current(NODE *someNode, int32_t n)
+{
+    NODE *auxNode = someNode;
 
+    if (n >= 0)
+    {
+        for (uint32_t i = 0; i < n; i++)
+        {
+            if (auxNode->next == NULL)
+            {
+                return NULL;
+            }
+            else
+            {
+                auxNode = auxNode->next;
+            }
+        }
+    }
+    else
+    {   
+        for (int32_t i = 0; i > n; i--)
+        {
+            if (auxNode->previous == NULL)
+            {
+                return NULL;
+            }
+            else
+            {
+                auxNode = auxNode->previous;
+            }
+        }
+    }
+
+    return auxNode;
+}
+
+NODE* get_nth_node_of_list(NODE *someNode, uint32_t n) 
+{   
+    NODE* auxNode = find_first_node(someNode);
+    // find the first and then get the nth node of the list
     for(uint32_t i = 0 ; i < n ; i++)
     {
         if(auxNode->next == NULL)
@@ -134,7 +170,8 @@ NODE* insert_new_node_after(NODE *thisNode)
 
 int main(void)
 {
-
+    
+    TEST_get_nth_node_process();
     return 0;
 }
 
@@ -170,4 +207,25 @@ void TEST_find_first_or_last_node_process()
     print_one_node(find_last_node(get_nth_node_of_list(&fistNode, 3)));
     printf("\n\n-----------\n\n");
     print_all_nodes(&fistNode);
+}
+
+void TEST_get_nth_node_process()
+{
+    NODE fistNode = {0};
+
+    fistNode.data = 80;
+
+    for (uint32_t i = 0; i < 10; i++)
+    {
+        append_node(&fistNode);
+    }
+    print_all_nodes(&fistNode);
+    printf("\n\n-----------\n\n");
+    
+    printf("-------------------- 5th node: --------------------\n");
+    print_one_node(get_nth_node_of_list(&fistNode, 5));
+    printf("-------------------- 7th node: --------------------\n");
+    print_one_node(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5),  2));
+    printf("-------------------- 3rd node: --------------------\n");
+    print_one_node(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), -2));
 }
