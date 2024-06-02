@@ -5,9 +5,9 @@
 
 typedef struct NODE
 {
-    uint32_t data;
     struct NODE *previous;
     struct NODE *next;
+    uint32_t data;
 } NODE;
 
 void print_one_node(NODE *someNode)
@@ -193,10 +193,10 @@ uint8_t exclude_node(NODE *someNode)
 
 int main(void)
 {
-    // TEST_insert_node_process();
+    TEST_insert_node_process();
     // TEST_find_first_or_last_node_process();
     // TEST_get_nth_node_process();
-    TEST_exclude_node_process();
+    // TEST_exclude_node_process();
     return 0;
 }
 
@@ -206,15 +206,17 @@ void TEST_insert_node_process()
 
     fistNode.data = 80;
 
-    for (uint32_t i = 0; i < 10; i++)
+    for (uint32_t i = 0; i < 3; i++)
     {
         append_node(&fistNode);
     }
 
+    printf("ORIGINAL LIST\n");
     print_all_nodes(&fistNode);
     printf("\n\n-----------\n\n");
 
     insert_new_node_after(insert_new_node_after(get_nth_node_of_list(&fistNode, 3)));
+    printf("AFTER INSERTION\n");
     print_all_nodes(&fistNode);
 }
 
