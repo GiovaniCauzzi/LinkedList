@@ -164,14 +164,39 @@ NODE *insert_new_node_after(NODE *thisNode)
         thisNode->next = new;
         new->previous = thisNode;
     }
-
     return new;
+}
+
+uint8_t exclude_node(NODE *someNode)
+{
+    if (someNode == NULL)
+    {
+        return FALSE;
+    }
+
+    if (someNode->previous != NULL && someNode->next != NULL)
+    {
+        someNode->next->previous = someNode->previous;
+        someNode->previous->next = someNode->next;
+    }
+    else if (someNode->previous != NULL)
+    {
+        someNode->previous->next = NULL;
+    }
+    else if (someNode->next != NULL)
+    {
+        someNode->next->previous = NULL;
+    }
+    free(someNode);
+    return TRUE;
 }
 
 int main(void)
 {
-
-    TEST_get_nth_node_process();
+    // TEST_insert_node_process();
+    // TEST_find_first_or_last_node_process();
+    // TEST_get_nth_node_process();
+    TEST_exclude_node_process();
     return 0;
 }
 
@@ -228,4 +253,28 @@ void TEST_get_nth_node_process()
     print_one_node(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), 2));
     printf("-------------------- 3rd node: --------------------\n");
     print_one_node(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), -2));
+}
+
+void TEST_exclude_node_process()
+{
+    uint32_t qtyOfNodes = 10;
+    NODE fistNode = {0};
+    fistNode.data = 80;
+
+    for (uint32_t i = 0; i < qtyOfNodes; i++)
+    {
+        append_node(&fistNode);
+    }
+    print_all_nodes(&fistNode);
+    printf("\n\n-----------\n\n");
+    // exclude_node(get_nth_node_of_list(&fistNode, 0));
+    // exclude_node(get_nth_node_of_list(&fistNode, 5));
+    if (exclude_node(get_nth_node_of_list(&fistNode, 1)))
+    {
+        print_all_nodes(&fistNode);
+    }
+    else
+    {
+        printf("Fail \n");
+    }
 }
