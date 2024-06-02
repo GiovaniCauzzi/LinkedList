@@ -14,10 +14,10 @@ void print_one_node(NODE *someNode)
 {
     if (someNode != NULL)
     {
-        printf("CURRENT NODE       : %x\n", someNode);
-        printf("Pointer to previous: %x\n", someNode->previous);
-        printf("Pointer to next:     %x\n", someNode->next);
-        printf("Data:                %x\n\n", someNode->data);
+        printf("CURRENT NODE       : 0x%x\n",   someNode);
+        printf("Pointer to previous: 0x%x\n",   someNode->previous);
+        printf("Pointer to next:     0x%x\n",   someNode->next);
+        printf("Data:                0x%x\n\n", someNode->data);
     }
     else
     {
