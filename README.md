@@ -1,6 +1,6 @@
 # Linked List
 
-This Linked List library is created as an exercise to understand pointers, dynamically allocated memory, and other fundamental concepts. It's currently a work in progress, but don't worry; we're making steady progress (slow and steady).
+This Linked List library is created as an exercise to understand pointers, dynamically allocated memory, and other fundamental concepts. It's currently a work in progress, but don't worry; we're making progress (slow and steady).
 
 ## To compile it
 
