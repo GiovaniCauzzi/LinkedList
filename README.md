@@ -28,7 +28,7 @@ I'm using [MinGW](https://www.mingw-w64.org/) in a windows machine. The file 'co
 - Print all nodes data;
 - Find first or last node;
 - Append node at the end of linked list;
-- Inser on node after other;
+- Insert on node after another;
 - Get "nth" node from the start or from other arbitrary node;
 - Exclude (free) node;
 
