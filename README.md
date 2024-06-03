@@ -36,7 +36,7 @@ For (almost) each feature, there is a "TEST_" funcion that tests it in someway o
 
 # To do
  
- - Develop a new way to print all nodes: Maybe a table written on console or a .CSV file;
+ - Develop a new way to print all nodes: Maybe a table written on console (DONE ✔️) or a .CSV file;
  - Sort list by data;
  - Insert node in its place (maintaining order);
  - Function to return the size of space used by linked list;

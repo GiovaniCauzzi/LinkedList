@@ -10,7 +10,7 @@ typedef struct NODE
     uint32_t data;
 } NODE;
 
-void print_one_node(NODE *someNode)
+void print_one_node_old(NODE *someNode)
 {
     if (someNode != NULL)
     {
@@ -23,6 +23,36 @@ void print_one_node(NODE *someNode)
     {
         printf("----> Print one node: NULL pointer <----\n");
     }
+}
+
+void print_one_node_table(NODE *someNode)
+{
+    if (someNode != NULL)
+    {
+        printf("|   0x%.10x   |      0x%.10x     |    0x%.10x    |    0x%.10x    |\n", someNode, someNode->previous, someNode->next, someNode->data);
+    }
+    else
+    {
+        printf("----> Print one node: NULL pointer <----\n");
+    }
+}
+
+void print_all_nodes(NODE *someNode)
+{
+    uint32_t counter = 0;
+    NODE *node = someNode;
+    printf("|------------------|-----------------------|--------------------|--------------------|\n");
+    printf("|   CURRENT NODE   |  POINTER TO PREVIOUS  |  POINTER TO NEXT   |        DATA        |\n");
+    printf("|------------------|-----------------------|--------------------|--------------------|\n");
+    do
+    {
+        print_one_node_table(node);
+        node = node->next;
+        counter++;
+    } while (node->next != NULL);
+    print_one_node_table(node);
+    printf("|------------------|-----------------------|--------------------|--------------------|\n");
+    printf("Counter: %d \n", counter);
 }
 
 NODE *find_last_node(NODE *head)
@@ -59,21 +89,6 @@ NODE *find_first_node(NODE *head)
 
     // printf("First node iterations: %d \n", counter);
     return current;
-}
-
-void print_all_nodes(NODE *someNode)
-{
-    uint32_t counter = 0;
-    NODE *node = someNode;
-
-    do
-    {
-        print_one_node(node);
-        node = node->next;
-        counter++;
-    } while (node->next != NULL);
-    print_one_node(node);
-    printf("Counter: %d \n", counter);
 }
 
 void append_node(NODE *someNode)
@@ -211,13 +226,14 @@ void TEST_insert_node_process()
         append_node(&fistNode);
     }
 
-    printf("ORIGINAL LIST\n");
+    printf("\nORIGINAL LIST\n");
     print_all_nodes(&fistNode);
-    printf("\n\n-----------\n\n");
+    printf("\n-------------------------------------------------------------------------------------\n\n");
 
-    insert_new_node_after(insert_new_node_after(get_nth_node_of_list(&fistNode, 3)));
+    insert_new_node_after(get_nth_node_of_list(&fistNode, 2));
     printf("AFTER INSERTION\n");
     print_all_nodes(&fistNode);
+    printf("\n\n");
 }
 
 void TEST_find_first_or_last_node_process()
@@ -229,9 +245,9 @@ void TEST_find_first_or_last_node_process()
     {
         append_node(&fistNode);
     }
-    // print_one_node((get_nth_node_of_list(&fistNode, 3)));
-    print_one_node(find_first_node(get_nth_node_of_list(&fistNode, 3)));
-    print_one_node(find_last_node(get_nth_node_of_list(&fistNode, 3)));
+    // print_one_node_old((get_nth_node_of_list(&fistNode, 3)));
+    print_one_node_old(find_first_node(get_nth_node_of_list(&fistNode, 3)));
+    print_one_node_old(find_last_node(get_nth_node_of_list(&fistNode, 3)));
     printf("\n\n-----------\n\n");
     print_all_nodes(&fistNode);
 }
@@ -250,11 +266,11 @@ void TEST_get_nth_node_process()
     printf("\n\n-----------\n\n");
 
     printf("-------------------- 5th node: --------------------\n");
-    print_one_node(get_nth_node_of_list(&fistNode, 5));
+    print_one_node_old(get_nth_node_of_list(&fistNode, 5));
     printf("-------------------- 7th node: --------------------\n");
-    print_one_node(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), 2));
+    print_one_node_old(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), 2));
     printf("-------------------- 3rd node: --------------------\n");
-    print_one_node(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), -2));
+    print_one_node_old(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), -2));
 }
 
 void TEST_exclude_node_process()
