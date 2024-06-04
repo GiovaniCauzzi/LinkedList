@@ -208,11 +208,27 @@ uint8_t exclude_node(NODE *someNode)
 
 int main(void)
 {
-    TEST_insert_node_process();
+    TEST_insert_a_lot_of_nodes_process();
+    // TEST_insert_node_process();
     // TEST_find_first_or_last_node_process();
     // TEST_get_nth_node_process();
     // TEST_exclude_node_process();
     return 0;
+}
+
+void TEST_insert_a_lot_of_nodes_process()
+{
+    NODE fistNode = {0};
+
+    fistNode.data = 123;
+
+    for (uint32_t i = 0; i < 10000; i++)
+    {
+        append_node(&fistNode);
+    }
+
+    print_all_nodes(&fistNode);
+    printf("\n\n");
 }
 
 void TEST_insert_node_process()
