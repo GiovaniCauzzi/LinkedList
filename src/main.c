@@ -7,7 +7,7 @@ typedef struct NODE
 {
     struct NODE *previous;
     struct NODE *next;
-    uint32_t data;
+    uint64_t data;
 } NODE;
 
 void print_one_node_old(NODE *someNode)
@@ -39,7 +39,7 @@ void print_one_node_table(NODE *someNode)
 
 void print_all_nodes(NODE *someNode)
 {
-    uint32_t counter = 0;
+    uint64_t counter = 0;
     NODE *node = someNode;
     printf("|------------------|-----------------------|--------------------|--------------------|\n");
     printf("|   CURRENT NODE   |  POINTER TO PREVIOUS  |  POINTER TO NEXT   |        DATA        |\n");
@@ -57,7 +57,7 @@ void print_all_nodes(NODE *someNode)
 
 NODE *find_last_node(NODE *head)
 {
-    uint32_t counter = 0;
+    uint64_t counter = 0;
     if (head == NULL)
         return NULL;
 
@@ -75,7 +75,7 @@ NODE *find_last_node(NODE *head)
 
 NODE *find_first_node(NODE *head)
 {
-    uint32_t counter = 0;
+    uint64_t counter = 0;
     if (head == NULL)
         return NULL;
 
@@ -91,10 +91,9 @@ NODE *find_first_node(NODE *head)
     return current;
 }
 
-void append_node(NODE *someNode)
+// Appends a new node after 'someNode'. Do not use it, its horrible
+NODE *append_new_node(NODE *someNode)
 {
-    static uint32_t someData = 0;
-
     NODE *last = find_last_node(someNode);
     NODE *new = (NODE *)malloc(sizeof(NODE));
 
@@ -102,9 +101,9 @@ void append_node(NODE *someNode)
 
     new->previous = last;
     new->next = NULL;
-    new->data = someData;
+    // new->data = 0;
 
-    someData++;
+    return new;
 }
 
 NODE *get_nth_node_from_current(NODE *someNode, int32_t n)
@@ -113,7 +112,7 @@ NODE *get_nth_node_from_current(NODE *someNode, int32_t n)
 
     if (n >= 0)
     {
-        for (uint32_t i = 0; i < n; i++)
+        for (uint64_t i = 0; i < n; i++)
         {
             if (auxNode->next == NULL)
             {
@@ -143,11 +142,11 @@ NODE *get_nth_node_from_current(NODE *someNode, int32_t n)
     return auxNode;
 }
 
-NODE *get_nth_node_of_list(NODE *someNode, uint32_t n)
+NODE *get_nth_node_of_list(NODE *someNode, uint64_t n)
 {
     NODE *auxNode = find_first_node(someNode);
     // find the first and then get the nth node of the list
-    for (uint32_t i = 0; i < n; i++)
+    for (uint64_t i = 0; i < n; i++)
     {
         if (auxNode->next == NULL)
         {
@@ -208,8 +207,8 @@ uint8_t exclude_node(NODE *someNode)
 
 int main(void)
 {
-    TEST_insert_a_lot_of_nodes_process();
-    // TEST_insert_node_process();
+    // TEST_insert_a_lot_of_nodes_process();
+    TEST_insert_node_process();
     // TEST_find_first_or_last_node_process();
     // TEST_get_nth_node_process();
     // TEST_exclude_node_process();
@@ -218,94 +217,95 @@ int main(void)
 
 void TEST_insert_a_lot_of_nodes_process()
 {
-    NODE fistNode = {0};
+    printf("\nStart\n");
+    NODE firstNode = {0};
 
-    fistNode.data = 123;
+    firstNode.data = 0 - 1;
 
-    for (uint32_t i = 0; i < 10000; i++)
+    for (uint64_t i = 0; i < 100000; i++)
     {
-        append_node(&fistNode);
+        print_one_node_table(append_new_node(&firstNode));
     }
-
-    print_all_nodes(&fistNode);
-    printf("\n\n");
+    
+    // print_all_nodes(&firstNode);
+    printf("\nDONE\n");
 }
 
 void TEST_insert_node_process()
 {
-    NODE fistNode = {0};
+    NODE firstNode = {0};
 
-    fistNode.data = 80;
+    firstNode.data = 80;
 
-    for (uint32_t i = 0; i < 3; i++)
+    for (uint64_t i = 0; i < 3; i++)
     {
-        append_node(&fistNode);
+        append_new_node(&firstNode);
     }
 
     printf("\nORIGINAL LIST\n");
-    print_all_nodes(&fistNode);
+    print_all_nodes(&firstNode);
     printf("\n-------------------------------------------------------------------------------------\n\n");
 
-    insert_new_node_after(get_nth_node_of_list(&fistNode, 2));
+    insert_new_node_after(get_nth_node_of_list(&firstNode, 2));
     printf("AFTER INSERTION\n");
-    print_all_nodes(&fistNode);
+    print_all_nodes(&firstNode);
     printf("\n\n");
 }
 
 void TEST_find_first_or_last_node_process()
 {
-    NODE fistNode = {0};
-    fistNode.data = 80;
+    NODE firstNode = {0};
+    firstNode.data = 80;
 
-    for (uint32_t i = 0; i < 10; i++)
+    for (uint64_t i = 0; i < 10; i++)
     {
-        append_node(&fistNode);
+        append_new_node(&firstNode);
     }
-    // print_one_node_old((get_nth_node_of_list(&fistNode, 3)));
-    print_one_node_old(find_first_node(get_nth_node_of_list(&fistNode, 3)));
-    print_one_node_old(find_last_node(get_nth_node_of_list(&fistNode, 3)));
+    // print_one_node_old((get_nth_node_of_list(&firstNode, 3)));
+    print_one_node_old(find_first_node(get_nth_node_of_list(&firstNode, 3)));
+    print_one_node_old(find_last_node(get_nth_node_of_list(&firstNode, 3)));
     printf("\n\n-----------\n\n");
-    print_all_nodes(&fistNode);
+    print_all_nodes(&firstNode);
 }
 
 void TEST_get_nth_node_process()
 {
-    NODE fistNode = {0};
+    NODE firstNode = {0};
 
-    fistNode.data = 80;
+    firstNode.data = 80;
 
-    for (uint32_t i = 0; i < 10; i++)
+    for (uint64_t i = 0; i < 10; i++)
     {
-        append_node(&fistNode);
+        append_new_node(&firstNode);
     }
-    print_all_nodes(&fistNode);
+    print_all_nodes(&firstNode);
     printf("\n\n-----------\n\n");
 
     printf("-------------------- 5th node: --------------------\n");
-    print_one_node_old(get_nth_node_of_list(&fistNode, 5));
+    print_one_node_old(get_nth_node_of_list(&firstNode, 5));
     printf("-------------------- 7th node: --------------------\n");
-    print_one_node_old(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), 2));
+    print_one_node_old(get_nth_node_from_current(get_nth_node_of_list(&firstNode, 5), 2));
     printf("-------------------- 3rd node: --------------------\n");
-    print_one_node_old(get_nth_node_from_current(get_nth_node_of_list(&fistNode, 5), -2));
+    print_one_node_old(get_nth_node_from_current(get_nth_node_of_list(&firstNode, 5), -2));
 }
 
 void TEST_exclude_node_process()
 {
-    uint32_t qtyOfNodes = 10;
-    NODE fistNode = {0};
-    fistNode.data = 80;
+    uint64_t qtyOfNodes = 10;
+    NODE firstNode = {0};
+    firstNode.data = 80;
 
-    for (uint32_t i = 0; i < qtyOfNodes; i++)
+    for (uint64_t i = 0; i < qtyOfNodes; i++)
     {
-        append_node(&fistNode);
+        append_new_node(&firstNode);
     }
-    print_all_nodes(&fistNode);
+    print_all_nodes(&firstNode);
     printf("\n\n-----------\n\n");
-    // exclude_node(get_nth_node_of_list(&fistNode, 0));
-    // exclude_node(get_nth_node_of_list(&fistNode, 5));
-    if (exclude_node(get_nth_node_of_list(&fistNode, 1)))
+    // exclude_node(get_nth_node_of_list(&firstNode, 0));
+    // exclude_node(get_nth_node_of_list(&firstNode, 5));
+    if (exclude_node(get_nth_node_of_list(&firstNode, 1)))
     {
-        print_all_nodes(&fistNode);
+        print_all_nodes(&firstNode);
     }
     else
     {
